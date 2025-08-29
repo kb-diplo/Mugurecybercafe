@@ -658,3 +658,51 @@ a:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: #0b5ed7;
 }
+
+/* Service Providers Section */
+.service-providers-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.provider-logo-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.provider-logo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.provider-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.provider-logo-card:hover .provider-logo {
+    transform: scale(1.1);
+}
+
+.provider-logo-card h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .provider-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .provider-logo-card {
+        padding: 1rem;
+    }
+}
