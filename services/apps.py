@@ -1,0 +1,10 @@
+from django.apps import AppConfig
+
+class ServicesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'services'
+    verbose_name = 'Service Management'
+    
+    def ready(self):
+        # Import signals to register them
+        import services.signals
