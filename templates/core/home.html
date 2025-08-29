@@ -1,0 +1,456 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mugure Cyber Services - Your Trusted Cyber Cafe in Gatundu North{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Your Trusted Cyber Cafe in Gatundu North</h1>
+                <p class="lead mb-4">Providing reliable internet, printing, and online services to the Kamwangi community since 2020.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'services:service_list' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-laptop me-2"></i> Our Services
+                    </a>
+                    <a href="{% url 'core:contact' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-phone-alt me-2"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="bg-light rounded-lg shadow d-flex align-items-center justify-content-center" style="height: 400px;">
+                    <div class="text-center text-muted">
+                        <i class="fas fa-laptop fa-5x mb-3"></i>
+                        <h4>Cyber Services</h4>
+                        <p>Professional IT Solutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our Services</h2>
+            <p class="lead text-muted">Comprehensive solutions for all your digital needs</p>
+            <div class="divider mx-auto"></div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Online Services -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="service-image-header bg-gradient-primary">
+                        <div class="service-icon-large">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Online Services</h5>
+                        <p class="card-text">eCitizen, KRA, NTSA, HELB, NSSF, NHIF, and other government services.</p>
+                        <a href="{% url 'services:service_list' %}?category=online" class="btn btn-outline-primary mt-auto align-self-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Internet & Computer -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="service-image-header bg-gradient-success">
+                        <div class="service-icon-large">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Internet & Computer</h5>
+                        <p class="card-text">High-speed internet, computer use, typing, and job applications.</p>
+                        <a href="{% url 'services:service_list' %}?category=cyber" class="btn btn-outline-primary mt-auto align-self-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Document Services -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="service-image-header bg-gradient-info">
+                        <div class="service-icon-large">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Document Services</h5>
+                        <p class="card-text">Printing, photocopying, scanning, lamination, and binding services.</p>
+                        <a href="{% url 'services:service_list' %}?category=documents" class="btn btn-outline-primary mt-auto align-self-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Passport & Photos -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="service-image-header bg-gradient-warning">
+                        <div class="service-icon-large">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Passport & Photos</h5>
+                        <p class="card-text">Passport applications and passport-size photos with instant printing.</p>
+                        <a href="{% url 'services:service_list' %}?category=passport" class="btn btn-outline-primary mt-auto align-self-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'services:service_list' %}" class="btn btn-primary btn-lg">
+                View All Services <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="bg-light section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="bg-light rounded-lg shadow d-flex align-items-center justify-content-center" style="height: 300px;">
+                    <div class="text-center text-muted">
+                        <i class="fas fa-users fa-4x mb-3"></i>
+                        <h5>Our Team</h5>
+                        <p>Dedicated Professionals</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+                <h2 class="mb-4">About Mugure Cyber Services</h2>
+                <p class="lead">Your one-stop solution for all digital needs in Gatundu North.</p>
+                <p>Established in 2020, Mugure Cyber Services has been proudly serving the Kamwangi community with reliable and affordable digital solutions. Our mission is to bridge the digital divide by providing accessible technology services to everyone.</p>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex">
+                            <div class="me-3 text-primary">
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="h6 mb-1">Experienced Team</h5>
+                                <p class="small text-muted mb-0">Knowledgeable staff ready to assist you</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex">
+                            <div class="me-3 text-primary">
+                                <i class="fas fa-bolt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="h6 mb-1">Fast Services</h5>
+                                <p class="small text-muted mb-0">Quick turnaround for all your needs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex">
+                            <div class="me-3 text-primary">
+                                <i class="fas fa-shield-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="h6 mb-1">Secure & Private</h5>
+                                <p class="small text-muted mb-0">Your data security is our priority</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex">
+                            <div class="me-3 text-primary">
+                                <i class="fas fa-headset fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="h6 mb-1">Friendly Support</h5>
+                                <p class="small text-muted mb-0">We're here to help you succeed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'core:about' %}" class="btn btn-outline-primary mt-3">Learn More About Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="lead text-muted">Hear from our satisfied clients</p>
+            <div class="divider mx-auto"></div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="testimonial-card text-center h-100">
+                    <div class="testimonial-avatar mb-3">
+                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin: 0 auto;">
+                            <i class="fas fa-user text-white fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="mb-4">"Mugure Cyber Services helped me with my KRA returns and passport application. Their service is fast and reliable. Highly recommended!"</p>
+                    <h5 class="mb-1">John Mwangi</h5>
+                    <p class="text-muted small">Local Business Owner</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card text-center h-100">
+                    <div class="bg-success rounded-circle mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-user text-white fa-2x"></i>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="mb-4">"The best cyber cafe in Kamwangi! I always come here for my printing needs and internet services. The staff is very helpful and professional."</p>
+                    <h5 class="mb-1">Sarah Wanjiku</h5>
+                    <p class="text-muted small">College Student</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card text-center h-100">
+                    <div class="bg-info rounded-circle mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-user text-white fa-2x"></i>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="far fa-star text-warning"></i>
+                    </div>
+                    <p class="mb-4">"I got my passport photos taken here and the quality was excellent. The service was quick and the staff was very friendly. Will definitely be back!"</p>
+                    <h5 class="mb-1">David Kimani</h5>
+                    <p class="text-muted small">Local Resident</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="bg-light section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="contact-info">
+                    <h2 class="mb-4">Get In Touch</h2>
+                    <p class="lead mb-4">Have questions or need assistance? We're here to help!</p>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Our Location</h5>
+                            <p class="mb-0">Kamwangi Town, Gatundu North<br>Kiambu County, Kenya</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-phone-alt fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Phone Number</h5>
+                            <p class="mb-0">
+                                <a href="tel:+254728031274" class="text-reset">0728 031 274</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Email Address</h5>
+                            <p class="mb-0">
+                                <a href="mailto:mugurecyberservices@gmail.com" class="text-reset">mugurecyberservices@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Working Hours</h5>
+                            <p class="mb-0">
+                                Monday - Friday: 8:00 AM - 8:00 PM<br>
+                                Saturday: 9:00 AM - 6:00 PM<br>
+                                Sunday: 10:00 AM - 4:00 PM
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links mt-5">
+                        <h5 class="h6 mb-3">Connect With Us</h5>
+                        <a href="https://wa.me/254728031274" class="text-primary me-3" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-primary me-3">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-primary me-3">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-primary">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="contact-form">
+                    <h3 class="mb-4">Send Us a Message</h3>
+                    <form id="whatsappForm" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="invalid-feedback">
+                                Please enter your name.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <div class="invalid-feedback">
+                                Please enter your phone number.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" name="subject" required>
+                            <div class="invalid-feedback">
+                                Please enter a subject.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            <div class="invalid-feedback">
+                                Please enter your message.
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fab fa-whatsapp me-2"></i> Send via WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<div class="map-container">
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.9876543210123!2d36.98765432101234!3d-1.1234567890123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMDcnMjQuNCJTIDM2wrw1OScxNS4yIkU!5e0!3m2!1sen!2ske!4v1234567890123!5m2!1sen!2ske" 
+        width="100%" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// WhatsApp Form Handler
+document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    // Validate form
+    if (!name || !phone || !subject || !message) {
+        this.classList.add('was-validated');
+        return;
+    }
+    
+    // Create WhatsApp message
+    let whatsappMessage = `*New Message from Website*\n\n`;
+    whatsappMessage += `*Name:* ${name}\n`;
+    whatsappMessage += `*Phone:* ${phone}\n`;
+    if (email) whatsappMessage += `*Email:* ${email}\n`;
+    whatsappMessage += `*Subject:* ${subject}\n\n`;
+    whatsappMessage += `*Message:*\n${message}`;
+    
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // WhatsApp URL with business number
+    const whatsappURL = `https://wa.me/254728031274?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+    
+    // Reset form
+    this.reset();
+    this.classList.remove('was-validated');
+});
+
+// Animate elements on scroll
+window.addEventListener('scroll', function() {
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    
+    elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (elementPosition < screenPosition) {
+            element.classList.add('animate-fadeInUp');
+        }
+    });
+});
+</script>
+{% endblock %}

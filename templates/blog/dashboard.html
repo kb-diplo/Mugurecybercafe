@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog Dashboard - Mugure Cyber Services{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">Blog Dashboard</h1>
+                <div>
+                    <a href="{% url 'blog:admin_blog_list' %}" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-list me-2"></i>All Posts
+                    </a>
+                    <a href="{% url 'blog:blog_create' %}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>New Post
+                    </a>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Posts</h5>
+                            <p class="h2">{{ total_posts }}</p>
+                            <a href="{% url 'blog:admin_blog_list' %}" class="text-white">View all</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Published</h5>
+                            <p class="h2">{{ published_posts }}</p>
+                            <a href="{% url 'blog:admin_blog_list' %}?status=published" class="text-white">View published</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Drafts</h5>
+                            <p class="h2">{{ draft_posts }}</p>
+                            <a href="{% url 'blog:admin_blog_list' %}?status=draft" class="text-white">View drafts</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">This Month</h5>
+                            <p class="h2">{{ recent_posts|length }}</p>
+                            <small class="text-white-50">Recent activity</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Posts -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Recent Posts</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            {% if recent_posts %}
+                                <div class="list-group list-group-flush">
+                                    {% for post in recent_posts %}
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">{{ post.title }}</h6>
+                                            <div>
+                                                <span class="badge bg-{{ post.status == 'published'|yesno:'success,secondary' }} me-2">
+                                                    {{ post.get_status_display }}
+                                                </span>
+                                                <small class="text-muted">{{ post.created_at|date:"M d, Y" }}</small>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1">{{ post.excerpt|truncatewords:15|default:post.content|truncatewords:15 }}</p>
+                                        <small class="text-muted">By {{ post.author.get_full_name|default:post.author.username }}</small>
+                                        <div class="mt-2">
+                                            {% if post.status == 'published' %}
+                                                <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-sm btn-outline-info me-1" target="_blank">
+                                                    <i class="fas fa-eye"></i> View
+                                                </a>
+                                            {% endif %}
+                                            <a href="{% url 'blog:blog_edit' post.pk %}" class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a href="{% url 'blog:blog_delete' post.pk %}" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-blog fa-3x text-muted mb-3"></i>
+                                    <h4 class="text-muted">No blog posts yet</h4>
+                                    <p class="text-muted">Create your first blog post to get started.</p>
+                                    <a href="{% url 'blog:blog_create' %}" class="btn btn-primary">
+                                        <i class="fas fa-plus me-2"></i>Create First Post
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

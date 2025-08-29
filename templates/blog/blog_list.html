@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}News & Updates - Mugure Cyber Services{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">News & Updates</h1>
+                <p class="lead">Stay informed with our latest news and helpful tips</p>
+                <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                    <ol class="breadcrumb bg-transparent mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">News & Updates</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Posts Section -->
+<section class="section-padding">
+    <div class="container">
+        {% if posts %}
+            <div class="row g-4">
+                {% for post in posts %}
+                <div class="col-lg-6 col-xl-4">
+                    <article class="blog-card h-100">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">{{ post.published_date|date:"M d, Y" }}</span>
+                                </div>
+                                <h5 class="card-title">
+                                    <a href="{% url 'blog:post_detail' post.slug %}" class="text-decoration-none text-dark">
+                                        {{ post.title }}
+                                    </a>
+                                </h5>
+                                <p class="card-text text-muted flex-grow-1">
+                                    {{ post.content|striptags|truncatewords:20 }}
+                                </p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">By {{ post.author.get_full_name|default:post.author.username }}</small>
+                                        <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-outline-primary btn-sm">
+                                            Read More <i class="fas fa-arrow-right ms-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+            <nav aria-label="Blog pagination" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                <i class="fas fa-chevron-left me-1"></i> Previous
+                            </a>
+                        </li>
+                    {% endif %}
+                    
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                Next <i class="fas fa-chevron-right ms-1"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        {% else %}
+            <!-- Empty State -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="empty-state py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-newspaper fa-5x text-muted"></i>
+                        </div>
+                        <h3 class="mb-3">No News Yet</h3>
+                        <p class="lead text-muted mb-4">
+                            We're working on bringing you the latest updates and helpful tips. 
+                            Check back soon for news about our services, digital literacy guides, 
+                            and important announcements for the Kamwangi community.
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="{% url 'core:home' %}" class="btn btn-primary">
+                                <i class="fas fa-home me-2"></i> Back to Home
+                            </a>
+                            <a href="{% url 'services:service_list' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-laptop me-2"></i> View Our Services
+                            </a>
+                            <a href="{% url 'core:contact' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-envelope me-2"></i> Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h3 class="mb-3">Stay Updated</h3>
+                <p class="lead mb-0">
+                    Want to be the first to know about our latest services and digital tips? 
+                    Visit us at our Kamwangi location or contact us directly.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt me-2"></i> Get in Touch
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.blog-card .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.empty-state {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.page-header {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #0056b3 100%);
+}
+</style>
+{% endblock %}

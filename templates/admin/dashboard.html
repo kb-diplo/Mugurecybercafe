@@ -1,0 +1,92 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Services</h5>
+                    <p class="h2">{{ stats.total_services }}</p>
+                    <a href="{% url 'admin:services_service_changelist' %}" class="text-white">View all</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Active Services</h5>
+                    <p class="h2">{{ stats.active_services }}</p>
+                    <a href="{% url 'admin:services_service_changelist' %}?is_active__exact=1" class="text-white">View active</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Total Blog Posts</h5>
+                    <p class="h2">{{ stats.total_posts }}</p>
+                    <a href="{% url 'admin:blog_blogpost_changelist' %}" class="text-white">View all</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Published Posts</h5>
+                    <p class="h2">{{ stats.published_posts }}</p>
+                    <a href="{% url 'admin:blog_blogpost_changelist' %}?status__exact=published" class="text-white">View published</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Services</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for service in recent_services %}
+                        <a href="{% url 'admin:services_service_change' service.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ service.name }}</h6>
+                                <small class="text-muted">{{ service.created_at|date:"M d, Y" }}</small>
+                            </div>
+                            <p class="mb-1">{{ service.short_description|truncatewords:10 }}</p>
+                            <small class="text-muted">{{ service.category.name }}</small>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Blog Posts</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for post in recent_posts %}
+                        <a href="{% url 'admin:blog_blogpost_change' post.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ post.title }}</h6>
+                                <span class="badge bg-{{ post.status == 'published'|yesno:'success,secondary' }}">
+                                    {{ post.get_status_display }}
+                                </span>
+                            </div>
+                            <p class="mb-1">{{ post.excerpt|truncatewords:10|default:post.content|truncatewords:10 }}</p>
+                            <small class="text-muted">By {{ post.author.get_full_name|default:post.author.username }} on {{ post.created_at|date:"M d, Y" }}</small>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,266 @@
+{% extends 'services/base.html' %}
+
+{% block page_title %}Service Dashboard{% endblock %}
+
+{% block action_buttons %}
+    <div class="btn-group">
+        <a href="{% url 'services:service_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add Service
+        </a>
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'services:category_list' %}">
+                <i class="fas fa-tags me-2"></i>Manage Categories
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">
+                <i class="fas fa-cog me-2"></i>Admin Site
+            </a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block service_content %}
+<div class="row">
+    <!-- Stats Cards -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-primary border-4 h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                            Total Services</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ services.count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-success border-4 h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-success text-uppercase mb-1">
+                            Categories</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ categories.count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-tags fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-info border-4 h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                            Featured Services</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ featured_services.count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-star fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-warning border-4 h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col me-2">
+                        <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                            Active Services</div>
+                        <div class="h5 mb-0 fw-bold text-gray-800">{{ active_services.count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Categories Summary -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 fw-bold text-primary">Categories Overview</h6>
+                <a href="{% url 'services:category_list' %}" class="btn btn-sm btn-outline-primary">
+                    View All
+                </a>
+            </div>
+            <div class="card-body">
+                {% if categories %}
+                    <div class="table-responsive
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Services</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in categories|slice:":5" %}
+                            <tr>
+                                <td>
+                                    <i class="{{ category.icon|default:'fas fa-tag' }} me-2"></i>
+                                    {{ category.name }}
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary rounded-pill">
+                                        {{ category.services.count }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if category.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Inactive</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'services:category_edit' category.pk %}" 
+                                       class="btn btn-sm btn-outline-primary"
+                                       data-bs-toggle="tooltip" 
+                                       title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No categories found.</p>
+                        <a href="{% url 'services:category_create' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus me-1"></i> Add Category
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Services -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 fw-bold text-primary">Recent Services</h6>
+                <a href="{% url 'services:service_list' %}" class="btn btn-sm btn-outline-primary">
+                    View All
+                </a>
+            </div>
+            <div class="card-body">
+                {% if services %}
+                    <div class="list-group list-group-flush">
+                        {% for service in services|slice:":5" %}
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                    <i class="{{ service.icon|default:'fas fa-cog' }} me-2"></i>
+                                    {{ service.name }}
+                                </h6>
+                                <small class="text-muted">{{ service.created_at|timesince }} ago</small>
+                            </div>
+                            <p class="mb-1">{{ service.short_description|truncatewords:10 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-tag me-1"></i>
+                                    {{ service.category.name|default:"Uncategorized" }}
+                                </small>
+                                <div>
+                                    {% if service.is_featured %}
+                                    <span class="badge bg-warning text-dark me-1">
+                                        <i class="fas fa-star"></i> Featured
+                                    </span>
+                                    {% endif %}
+                                    {% if not service.is_active %}
+                                    <span class="badge bg-secondary">Inactive</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No services found.</p>
+                        <a href="{% url 'services:service_create' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus me-1"></i> Add Service
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row
+    <!-- Quick Actions -->
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 fw-bold text-primary">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3 col-6">
+                        <a href="{% url 'services:service_create' %}" class="btn btn-outline-primary w-100 h-100 py-4">
+                            <i class="fas fa-plus-circle fa-2x d-block mb-2"></i>
+                            Add New Service
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <a href="{% url 'services:category_create' %}" class="btn btn-outline-success w-100 h-100 py-4">
+                            <i class="fas fa-tags fa-2x d-block mb-2"></i>
+                            Add New Category
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <a href="{% url 'services:service_list' %}" class="btn btn-outline-info w-100 h-100 py-4">
+                            <i class="fas fa-list fa-2x d-block mb-2"></i>
+                            View All Services
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <a href="{% url 'services:category_list' %}" class="btn btn-outline-secondary w-100 h-100 py-4">
+                            <i class="fas fa-tag fa-2x d-block mb-2"></i>
+                            Manage Categories
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Initialize tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+</script>
+{% endblock %}

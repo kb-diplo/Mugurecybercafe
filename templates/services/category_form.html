@@ -1,0 +1,209 @@
+{% extends 'services/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}{% if form.instance.pk %}Edit{% else %}Add New{% endif %} Category{% endblock %}
+
+{% block action_buttons %}
+    <a href="{% url 'services:category_list' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Back to Categories
+    </a>
+{% endblock %}
+
+{% block service_content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Category Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form.order|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.description|as_crispy_field }}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.icon|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch mt-4 pt-2">
+                                {{ form.is_active|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'services:category_list' %}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-1"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Save Category
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        {% if form.instance.pk %}
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Services in this Category</h5>
+            </div>
+            {% if form.instance.services.all %}
+                <div class="list-group list-group-flush">
+                    {% for service in form.instance.services.all %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">
+                                    <i class="{{ service.icon|default:'fas fa-cog' }} me-2 text-primary"></i>
+                                    {{ service.name }}
+                                    {% if not service.is_active %}
+                                    <span class="badge bg-secondary ms-2">Inactive</span>
+                                    {% endif %}
+                                </h6>
+                                <p class="text-muted small mb-0">{{ service.short_description }}</p>
+                            </div>
+                            <a href="{% url 'services:service_edit' service.pk %}" 
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="card-body text-center py-4">
+                    <div class="text-muted">
+                        <i class="fas fa-inbox fa-3x opacity-25 mb-3"></i>
+                        <p class="mb-0">No services in this category yet.</p>
+                    </div>
+                    <a href="{% url 'services:service_create' %}?category={{ form.instance.pk }}" 
+                       class="btn btn-outline-primary mt-3">
+                        <i class="fas fa-plus me-1"></i> Add Service to This Category
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="card mt-4 border-danger">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Danger Zone</h5>
+            </div>
+            <div class="card-body">
+                <h6>Delete this category</h6>
+                <p class="text-muted">
+                    {% if form.instance.services.exists %}
+                        <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                        This category contains {{ form.instance.services.count }} service{{ form.instance.services.count|pluralize }}. 
+                        You must move or delete these services before deleting this category.
+                    {% else %}
+                        Once deleted, this category cannot be recovered.
+                    {% endif %}
+                </p>
+                <a href="{% url 'services:category_delete' form.instance.pk %}" 
+                   class="btn btn-outline-danger"
+                   {% if form.instance.services.exists %}disabled{% endif %}>
+                    <i class="fas fa-trash me-1"></i> Delete Category
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Preview</h5>
+            </div>
+            <div class="card-body text-center">
+                <div id="icon-preview" class="mb-3">
+                    <i class="{{ form.instance.icon|default:'fas fa-folder' }} fa-4x text-primary"></i>
+                </div>
+                <h4 id="name-preview">{{ form.instance.name|default:"Category Name" }}</h4>
+                <p class="text-muted mb-2" id="desc-preview">
+                    {{ form.instance.description|default:"Category description will appear here"|truncatewords:15 }}
+                </p>
+                <div class="mt-3">
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-tag me-1"></i>
+                        <span id="service-count">
+                            {{ form.instance.services.count|default:0 }} service{{ form.instance.services.count|default:0|pluralize }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Help</h5>
+            </div>
+            <div class="card-body">
+                <h6>Icon Selection</h6>
+                <p class="small text-muted">
+                    Use <a href="https://fontawesome.com/icons" target="_blank">Font Awesome</a> icons.
+                    Example: <code>fas fa-folder</code> or <code>fas fa-tags</code>
+                </p>
+                
+                <h6 class="mt-3">Order</h6>
+                <p class="small text-muted">
+                    Lower numbers appear first in lists. Use multiples of 10 for easier reordering.
+                </p>
+                
+                <h6 class="mt-3">Active Status</h6>
+                <p class="small text-muted">
+                    Inactive categories won't be shown in public lists but will remain accessible via direct links.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Live preview of the category name
+const nameInput = document.getElementById('id_name');
+const namePreview = document.getElementById('name-preview');
+
+if (nameInput && namePreview) {
+    nameInput.addEventListener('input', function() {
+        namePreview.textContent = this.value || 'Category Name';
+    });
+}
+
+// Live preview of the description
+const descInput = document.getElementById('id_description');
+const descPreview = document.getElementById('desc-preview');
+
+if (descInput && descPreview) {
+    descInput.addEventListener('input', function() {
+        descPreview.textContent = this.value || 'Category description will appear here';
+    });
+}
+
+// Live preview of the icon
+const iconInput = document.getElementById('id_icon');
+const iconPreview = document.getElementById('icon-preview');
+
+if (iconInput && iconPreview) {
+    iconInput.addEventListener('input', function() {
+        const iconClass = this.value || 'fas fa-folder';
+        iconPreview.innerHTML = `<i class="${iconClass} fa-4x text-primary"></i>`;
+    });
+}
+</script>
+{% endblock %}

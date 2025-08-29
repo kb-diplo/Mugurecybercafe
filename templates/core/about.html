@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Mugure Cyber Services{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">About Mugure Cyber Services</h1>
+                <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                    <ol class="breadcrumb bg-transparent mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">About Us</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="custom-shape-divider-bottom-1621363718">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="section-title mb-4">
+                    <span class="text-primary">Our Story</span>
+                    <h2 class="mb-3">Serving Kamwangi Since 2020</h2>
+                    <div class="divider"></div>
+                </div>
+                <p class="lead">Mugure Cyber Services was founded with a simple mission: to provide reliable and affordable digital services to the Kamwangi community in Gatundu North.</p>
+                <p>What started as a small cyber cafe has grown into a comprehensive digital services hub, helping hundreds of customers with their online and technology needs. Our commitment to excellent customer service and quality work has made us a trusted name in the community.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex">
+                            <div class="me-3 text-primary">
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="h6 mb-2">Our Mission</h5>
+                                <p class="mb-0 small">To provide accessible and reliable digital services that empower our community.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex">
+                            <div class="me-3 text-primary">
+                                <i class="fas fa-eye fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="h6 mb-2">Our Vision</h5>
+                                <p class="mb-0 small">To be the leading provider of digital solutions in Gatundu North.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group-responsive mt-4">
+                    <a href="{% url 'services:service_list' %}" class="btn btn-primary">
+                        <i class="fas fa-laptop me-2"></i> Our Services
+                    </a>
+                    <a href="{% url 'core:contact' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-phone-alt me-2"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="bg-primary text-white rounded-lg p-4 text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-building fa-3x"></i>
+                            </div>
+                            <h5 class="mb-2">Our Facility</h5>
+                            <p class="mb-0">Modern cyber cafe with latest equipment in Kamwangi</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bg-light rounded-lg p-4 text-center h-100">
+                            <div class="mb-3">
+                                <i class="fas fa-users fa-2x text-primary"></i>
+                            </div>
+                            <h4 class="mb-1">500+</h4>
+                            <p class="mb-0 text-muted">Satisfied Customers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bg-light rounded-lg p-4 text-center h-100">
+                            <div class="mb-3">
+                                <i class="fas fa-calendar fa-2x text-success"></i>
+                            </div>
+                            <h4 class="mb-1">3+</h4>
+                            <p class="mb-0 text-muted">Years Serving</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="bg-light section-padding">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="section-title">
+                <span class="text-primary">Our Team</span>
+                <h2 class="mb-3">Meet Our Dedicated Team</h2>
+                <div class="divider mx-auto"></div>
+                <p class="lead">Passionate individuals committed to providing excellent service</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="team-card">
+                    <div class="team-img">
+                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="fas fa-user text-white fa-3x"></i>
+                        </div>
+                    </div>
+                    <h4>Mugure Wanjiku</h4>
+                    <p class="text-muted mb-3">Founder & CEO</p>
+                    <p>Mugure founded Mugure Cyber Services with a vision to provide accessible digital solutions to the Kamwangi community and bridge the digital divide in Gatundu North.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-primary me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team-card">
+                    <div class="team-img">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="fas fa-user text-white fa-3x"></i>
+                        </div>
+                    </div>
+                    <h4>Lawrence Mbugua</h4>
+                    <p class="text-muted mb-3">IT Specialist</p>
+                    <p>Lawrence handles all technical aspects of our services, ensuring smooth operations and providing expert IT support to our customers.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-primary me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team-card">
+                    <div class="team-img">
+                        <div class="bg-info rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="fas fa-user text-white fa-3x"></i>
+                        </div>
+                    </div>
+                    <h4>Support Staff</h4>
+                    <p class="text-muted mb-3">Customer Service</p>
+                    <p>Our dedicated support staff ensures every customer receives excellent service and assistance with all their digital needs.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-primary me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="pe-lg-5">
+                    <div class="section-title mb-4">
+                        <span class="text-primary">Why Choose Us</span>
+                        <h2 class="mb-3">What Makes Us Different</h2>
+                        <div class="divider"></div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                                <i class="fas fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="h5">Experienced Team</h4>
+                            <p class="mb-0">Our team consists of skilled professionals with years of experience in the industry.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                                <i class="fas fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="h5">Customer Focus</h4>
+                            <p class="mb-0">We prioritize our customers' needs and ensure complete satisfaction.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                                <i class="fas fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="h5">Affordable Services</h4>
+                            <p class="mb-0">We offer competitive pricing without compromising on quality.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <div class="me-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                                <i class="fas fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="h5">Quick Turnaround</h4>
+                            <p class="mb-0">We value your time and ensure fast and efficient service delivery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="bg-primary text-white rounded-lg p-5 text-center">
+                            <div class="mb-4">
+                                <i class="fas fa-trophy fa-4x"></i>
+                            </div>
+                            <h3 class="mb-2">Best Cyber Cafe</h3>
+                            <p class="mb-0 fs-5">Gatundu North 2023</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="bg-light rounded-lg p-4 text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-award fa-3x text-warning"></i>
+                            </div>
+                            <h4 class="mb-2">Excellence</h4>
+                            <p class="mb-0 text-muted">Quality Service Guaranteed</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h3 class="mb-3">Ready to experience our services?</h3>
+                <p class="lead mb-0">Visit us today and let us help you with all your digital needs.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-phone-alt me-2"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.page-header {
+    position: relative;
+    padding: 100px 0 70px;
+    overflow: hidden;
+}
+
+.custom-shape-divider-bottom-1621363718 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1621363718 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 50px;
+}
+
+.custom-shape-divider-bottom-1621363718 .shape-fill {
+    fill: #FFFFFF;
+}
+
+.team-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.team-img {
+    position: relative;
+    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+}
+
+.icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+}
+</style>
+{% endblock %}

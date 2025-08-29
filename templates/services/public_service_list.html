@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Services - Mugure Cyber Services{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">Our Services</h1>
+                <p class="lead">Professional digital solutions for Kamwangi community</p>
+                <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                    <ol class="breadcrumb bg-transparent mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Services</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="section-padding">
+    <div class="container">
+        {% if categories %}
+            {% for category in categories %}
+                {% if category.services.all %}
+                <div class="service-category mb-5">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-8">
+                            <div class="d-flex align-items-center">
+                                <div class="category-icon me-3">
+                                    <i class="{{ category.icon }} fa-2x text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="mb-1">{{ category.name }}</h2>
+                                    <p class="text-muted mb-0">{{ category.description }}</p>
+                                    <!-- Display service icons in category header -->
+                                    <div class="service-icons-preview mt-2">
+                                        {% for service in category.services.all|slice:":4" %}
+                                            {% if service.is_active %}
+                                            <span class="service-preview-icon me-2" title="{{ service.name }}">
+                                                <i class="{{ service.icon }} text-primary"></i>
+                                            </span>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if category.services.count > 4 %}
+                                        <span class="text-muted small">+{{ category.services.count|add:"-4" }} more</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <span class="badge bg-primary fs-6">{{ category.services.count }} Service{{ category.services.count|pluralize }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-4">
+                        {% for service in category.services.all %}
+                            {% if service.is_active %}
+                            <div class="col-lg-6 col-xl-4">
+                                <div class="service-card h-100">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <div class="service-image-header {% cycle 'bg-gradient-primary' 'bg-gradient-success' 'bg-gradient-info' 'bg-gradient-warning' %}">
+                                            <div class="service-icon-large">
+                                                <i class="{{ service.icon }}"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title mb-3">{{ service.name }}</h5>
+                                            <p class="card-text text-muted flex-grow-1">
+                                                {% if service.short_description %}
+                                                    {{ service.short_description }}
+                                                {% else %}
+                                                    {{ service.description|truncatewords:15 }}
+                                                {% endif %}
+                                            </p>
+                                            {% if service.description %}
+                                            <div class="mt-auto">
+                                                <button class="btn btn-outline-primary btn-sm w-100" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#serviceModal{{ service.id }}">
+                                                    <i class="fas fa-info-circle me-2"></i>Learn More
+                                                </button>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <!-- Empty State -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="empty-state py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-laptop fa-5x text-muted"></i>
+                        </div>
+                        <h3 class="mb-3">Services Coming Soon</h3>
+                        <p class="lead text-muted mb-4">
+                            We're preparing our comprehensive digital services for the Kamwangi community. 
+                            Contact us directly for immediate assistance with your digital needs.
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary">
+                                <i class="fas fa-phone-alt me-2"></i> Contact Us
+                            </a>
+                            <a href="{% url 'core:home' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-home me-2"></i> Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Service Modals -->
+{% for category in categories %}
+    {% for service in category.services.all %}
+        {% if service.is_active and service.description %}
+        <div class="modal fade" id="serviceModal{{ service.id }}" tabindex="-1" aria-labelledby="serviceModalLabel{{ service.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="serviceModalLabel{{ service.id }}">
+                            <i class="{{ service.icon }} me-2 text-primary"></i>{{ service.name }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <span class="badge bg-primary">{{ category.name }}</span>
+                        </div>
+                        <div class="service-description">
+                            {{ service.description|safe }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="{% url 'core:contact' %}" class="btn btn-primary">
+                            <i class="fas fa-phone-alt me-2"></i>Get This Service
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+<!-- CTA Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h3 class="mb-3">Ready to Get Started?</h3>
+                <p class="lead mb-0">
+                    Visit us at our Kamwangi location or call us to discuss your digital service needs. 
+                    We're here to help you navigate the digital world with confidence.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-map-marker-alt me-2"></i> Visit Us
+                    </a>
+                    <a href="tel:0728031274" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-phone-alt me-2"></i> Call Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.service-card .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 1rem;
+}
+
+.service-card .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-category {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 2rem;
+}
+
+.service-category:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.service-icons-preview {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.service-preview-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.service-preview-icon:hover {
+    background: rgba(var(--bs-primary-rgb), 0.2);
+    transform: scale(1.1);
+}
+
+.service-preview-icon i {
+    font-size: 0.9rem;
+}
+
+.empty-state {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.page-header {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #0056b3 100%);
+}
+
+.modal-body .service-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.modal-body .service-description h3,
+.modal-body .service-description h4,
+.modal-body .service-description h5 {
+    color: var(--bs-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal-body .service-description ul,
+.modal-body .service-description ol {
+    margin-bottom: 1.5rem;
+}
+
+.modal-body .service-description li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .service-category .row.align-items-center {
+        text-align: center;
+    }
+    
+    .category-icon {
+        margin: 0 auto 1rem;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} - Mugure Cyber Services{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5">{{ post.title }}</h1>
+                <p class="lead">Published on {{ post.published_date|date:"F d, Y" }}</p>
+                <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                    <ol class="breadcrumb bg-transparent mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'blog:blog_list' %}" class="text-white">News & Updates</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">{{ post.title|truncatewords:3 }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Post Content -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <article class="blog-post">
+                    <div class="post-meta mb-4">
+                        <div class="d-flex align-items-center text-muted">
+                            <i class="fas fa-user me-2"></i>
+                            <span class="me-3">By {{ post.author.get_full_name|default:post.author.username }}</span>
+                            <i class="fas fa-calendar me-2"></i>
+                            <span>{{ post.published_date|date:"F d, Y" }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-content">
+                        {{ post.content|safe }}
+                    </div>
+                    
+                    <hr class="my-5">
+                    
+                    <div class="post-footer">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="share-buttons">
+                                    <h6 class="mb-3">Share this article:</h6>
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-outline-primary btn-sm share-facebook" 
+                                           data-url="{{ request.build_absolute_uri }}" 
+                                           data-title="{{ post.title }}"
+                                           target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-facebook-f"></i> Facebook
+                                        </a>
+                                        <a href="#" class="btn btn-outline-info btn-sm share-twitter" 
+                                           data-url="{{ request.build_absolute_uri }}" 
+                                           data-title="{{ post.title }}"
+                                           target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-twitter"></i> Twitter
+                                        </a>
+                                        <a href="#" class="btn btn-outline-success btn-sm share-whatsapp" 
+                                           data-url="{{ request.build_absolute_uri }}" 
+                                           data-title="{{ post.title }}"
+                                           target="_blank" rel="noopener noreferrer">
+                                            <i class="fab fa-whatsapp"></i> WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <a href="{% url 'blog:blog_list' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i> Back to News
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related CTA -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h3 class="mb-3">Need Help with Digital Services?</h3>
+                <p class="lead mb-0">
+                    Visit Mugure Cyber Services in Kamwangi for professional assistance with all your digital needs.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+                    <a href="{% url 'services:service_list' %}" class="btn btn-primary">
+                        <i class="fas fa-laptop me-2"></i> Our Services
+                    </a>
+                    <a href="{% url 'core:contact' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-phone-alt me-2"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.post-content h3 {
+    color: var(--bs-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.post-content h4 {
+    color: var(--bs-dark);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.post-content h5 {
+    color: var(--bs-secondary);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-content ul, .post-content ol {
+    margin-bottom: 1.5rem;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+.post-content p {
+    margin-bottom: 1.25rem;
+}
+
+.post-meta {
+    padding: 1rem;
+    background-color: var(--bs-light);
+    border-radius: 0.5rem;
+}
+
+.share-buttons .btn {
+    border-radius: 50px;
+}
+
+.page-header {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #0056b3 100%);
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Social Media Sharing Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Facebook Share
+    document.querySelector('.share-facebook').addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = encodeURIComponent(this.dataset.url);
+        const title = encodeURIComponent(this.dataset.title);
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`;
+        window.open(facebookUrl, 'facebook-share', 'width=580,height=400');
+    });
+
+    // Twitter Share
+    document.querySelector('.share-twitter').addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = encodeURIComponent(this.dataset.url);
+        const title = encodeURIComponent(this.dataset.title);
+        const text = encodeURIComponent(`Check out this article: ${this.dataset.title}`);
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+        window.open(twitterUrl, 'twitter-share', 'width=580,height=400');
+    });
+
+    // WhatsApp Share
+    document.querySelector('.share-whatsapp').addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.dataset.url;
+        const title = this.dataset.title;
+        const text = encodeURIComponent(`Check out this article: ${title}\n\n${url}`);
+        const whatsappUrl = `https://wa.me/?text=${text}`;
+        window.open(whatsappUrl, '_blank');
+    });
+});
+</script>
+{% endblock %}

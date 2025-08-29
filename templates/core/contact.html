@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - Mugure Cyber Services{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">Contact Us</h1>
+                <p class="lead">We'd love to hear from you</p>
+                <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                    <ol class="breadcrumb bg-transparent mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Contact</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="custom-shape-divider-bottom-1621363718">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <div class="contact-info">
+                    <h2 class="mb-4">Get In Touch</h2>
+                    <p class="lead mb-4">Have questions or need assistance? We're here to help!</p>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Our Location</h5>
+                            <p class="mb-0">Kamwangi Town, Gatundu North<br>Kiambu County, Kenya</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-phone-alt fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Phone Number</h5>
+                            <p class="mb-0">
+                                <a href="tel:+254728031274" class="text-reset">0728 031 274</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Email Address</h5>
+                            <p class="mb-0">
+                                <a href="mailto:mugurecyberservices@gmail.com" class="text-reset">mugurecyberservices@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-primary">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="h6 mb-1">Working Hours</h5>
+                            <p class="mb-0">
+                                Monday - Friday: 8:00 AM - 8:00 PM<br>
+                                Saturday: 9:00 AM - 6:00 PM<br>
+                                Sunday: 10:00 AM - 4:00 PM
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links mt-5">
+                        <h5 class="h6 mb-3">Connect With Us</h5>
+                        <a href="https://wa.me/254728031274" class="text-primary me-3" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-primary me-3">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-primary me-3">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-primary">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="contact-form bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="mb-4">Send Us a Message</h3>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form id="whatsappContactForm" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Your Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                <div class="invalid-feedback">
+                                    Please enter your phone number.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="subject" name="subject" required>
+                            <div class="invalid-feedback">
+                                Please enter a subject.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="message" class="form-label">Your Message <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message" name="message" rows="6" required></textarea>
+                            <div class="invalid-feedback">
+                                Please enter your message.
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fab fa-whatsapp me-2"></i> Send via WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Document Sending Section -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">Send Us Documents</h2>
+                <p class="lead mb-4">Need to send us files or documents? Click the button below to compose an email with our address pre-filled.</p>
+                <a href="mailto:mugurecyberservices@gmail.com?subject=Document%20Submission%20for%20Mugure%20Cyber%20Services&body=Hello%20Mugure%20Cyber%20Services%2C%0D%0A%0D%0APlease%20find%20attached%20the%20requested%20documents.%0D%0A%0D%0ADetails%3A%0D%0A-%20Document%20Type%3A%20%5BSpecify%20document%20type%5D%0D%0A-%20Purpose%3A%20%5BBriefly%20describe%20the%20purpose%5D%0D%0A%0D%0AThank%20you%2C%0D%0A%5BYour%20Name%5D" 
+                   class="btn btn-primary btn-lg"
+                   target="_blank">
+                    <i class="fas fa-paper-plane me-2"></i> Send Documents via Email
+                </a>
+                <p class="mt-3 text-muted">
+                    <small>This will open your default email client with our address pre-filled.</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Our Location</h2>
+                <p class="lead text-center mb-5">Find us easily in Kamwangi Town, Gatundu North</p>
+            </div>
+        </div>
+        <div class="map-container rounded-lg shadow-lg overflow-hidden">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.1234567890123!2d36.98765432101234!3d-1.1122334455667788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3d4b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2sKamwangi%20Town%2C%20Gatundu%20North!5e0!3m2!1sen!2ske!4v1234567890123!5m2!1sen!2ske"
+                width="100%"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+</div>
+
+<!-- CTA Section -->
+<section class="bg-light section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h3 class="mb-3">Visit Our Cyber Cafe</h3>
+                <p class="lead mb-0">Experience our services in person. Our friendly staff is ready to assist you with all your digital needs.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="#" class="btn btn-primary btn-lg">
+                    <i class="fas fa-directions me-2"></i> Get Directions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.page-header {
+    position: relative;
+    padding: 100px 0 70px;
+    overflow: hidden;
+}
+
+.custom-shape-divider-bottom-1621363718 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1621363718 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 50px;
+}
+
+.custom-shape-divider-bottom-1621363718 .shape-fill {
+    fill: #FFFFFF;
+}
+
+.contact-form {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.map-container {
+    width: 100%;
+    height: 450px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+}
+
+.alert {
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+}
+
+.alert-dismissible .btn-close {
+    padding: 1rem 1.25rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+// WhatsApp Contact Form Handler
+document.getElementById('whatsappContactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    // Validate form
+    if (!name || !phone || !subject || !message) {
+        this.classList.add('was-validated');
+        return;
+    }
+    
+    // Create WhatsApp message
+    let whatsappMessage = `*New Contact Form Message*\n\n`;
+    whatsappMessage += `*Name:* ${name}\n`;
+    whatsappMessage += `*Phone:* ${phone}\n`;
+    if (email) whatsappMessage += `*Email:* ${email}\n`;
+    whatsappMessage += `*Subject:* ${subject}\n\n`;
+    whatsappMessage += `*Message:*\n${message}`;
+    
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // WhatsApp URL with business number
+    const whatsappURL = `https://wa.me/254728031274?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+    
+    // Reset form
+    this.reset();
+    this.classList.remove('was-validated');
+});
+</script>
+{% endblock %}

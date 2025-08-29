@@ -1,0 +1,194 @@
+{% extends 'services/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}{% if form.instance.pk %}Edit{% else %}Add New{% endif %} Service{% endblock %}
+
+{% block action_buttons %}
+    <a href="{% url 'services:service_list' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Back to Services
+    </a>
+{% endblock %}
+
+{% block service_content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Service Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.slug|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.category|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.order|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.short_description|as_crispy_field }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.description|as_crispy_field }}
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.icon|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch mt-4 pt-2">
+                                {{ form.is_featured|as_crispy_field }}
+                            </div>
+                            <div class="form-check form-switch mt-2">
+                                {{ form.is_active|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'services:service_list' %}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-1"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Save Service
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        {% if form.instance.pk %}
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Danger Zone</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">Delete this service</h6>
+                        <p class="text-muted mb-0">Once deleted, this service cannot be recovered.</p>
+                    </div>
+                    <a href="{% url 'services:service_delete' form.instance.pk %}" class="btn btn-outline-danger">
+                        <i class="fas fa-trash me-1"></i> Delete Service
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Preview</h5>
+            </div>
+            <div class="card-body text-center">
+                <div id="icon-preview" class="mb-3">
+                    <i class="{{ form.instance.icon|default:'fas fa-cog' }} fa-4x text-primary"></i>
+                </div>
+                <h4 id="name-preview">{{ form.instance.name|default:"Service Name" }}</h4>
+                <p class="text-muted mb-2" id="short-desc-preview">
+                    {{ form.instance.short_description|default:"Short description will appear here" }}
+                </p>
+                <div class="mt-3">
+                    <span class="badge bg-light text-dark">
+                        <i class="{{ form.instance.category.icon|default:'fas fa-tag' }} me-1"></i>
+                        <span id="category-preview">
+                            {{ form.instance.category.name|default:"Category" }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Help</h5>
+            </div>
+            <div class="card-body">
+                <h6>Icon Selection</h6>
+                <p class="small text-muted">
+                    Use <a href="https://fontawesome.com/icons" target="_blank">Font Awesome</a> icons.
+                    Example: <code>fas fa-laptop</code> or <code>fas fa-server</code>
+                </p>
+                
+                <h6 class="mt-3">Slug</h6>
+                <p class="small text-muted">
+                    A URL-friendly version of the name. All lowercase, with hyphens instead of spaces.
+                </p>
+                
+                <h6 class="mt-3">Order</h6>
+                <p class="small text-muted">
+                    Lower numbers appear first in lists. Use multiples of 10 for easier reordering.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Live preview of the service name
+const nameInput = document.getElementById('id_name');
+const namePreview = document.getElementById('name-preview');
+
+if (nameInput && namePreview) {
+    nameInput.addEventListener('input', function() {
+        namePreview.textContent = this.value || 'Service Name';
+    });
+}
+
+// Live preview of the short description
+const shortDescInput = document.getElementById('id_short_description');
+const shortDescPreview = document.getElementById('short-desc-preview');
+
+if (shortDescInput && shortDescPreview) {
+    shortDescInput.addEventListener('input', function() {
+        shortDescPreview.textContent = this.value || 'Short description will appear here';
+    });
+}
+
+// Live preview of the icon
+const iconInput = document.getElementById('id_icon');
+const iconPreview = document.getElementById('icon-preview');
+
+if (iconInput && iconPreview) {
+    iconInput.addEventListener('input', function() {
+        const iconClass = this.value || 'fas fa-cog';
+        iconPreview.innerHTML = `<i class="${iconClass} fa-4x text-primary"></i>`;
+    });
+}
+
+// Live preview of category (if category select exists)
+const categorySelect = document.getElementById('id_category');
+const categoryPreview = document.getElementById('category-preview');
+
+if (categorySelect && categoryPreview) {
+    categorySelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const categoryName = selectedOption.textContent;
+        categoryPreview.textContent = categoryName;
+        
+        // If you have category icons in data attributes, you can update them here
+        // const categoryIcon = selectedOption.dataset.icon || 'fas fa-tag';
+        // categoryPreview.previousElementSibling.className = `${categoryIcon} me-1`;
+    });
+}
+</script>
+{% endblock %}

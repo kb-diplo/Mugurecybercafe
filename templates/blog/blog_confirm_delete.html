@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Post - Blog Management{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Are you sure you want to delete this blog post?</p>
+                    
+                    <div class="alert alert-light border">
+                        <h5 class="mb-2">{{ object.title }}</h5>
+                        <p class="mb-1"><strong>Author:</strong> {{ object.author.get_full_name|default:object.author.username }}</p>
+                        <p class="mb-1"><strong>Status:</strong> 
+                            <span class="badge bg-{{ object.status == 'published'|yesno:'success,secondary' }}">
+                                {{ object.get_status_display }}
+                            </span>
+                        </p>
+                        <p class="mb-0"><strong>Created:</strong> {{ object.created_at|date:"M d, Y H:i" }}</p>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Warning:</strong> This action cannot be undone. The blog post will be permanently deleted.
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'blog:admin_blog_list' %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>Delete Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
