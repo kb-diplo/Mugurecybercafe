@@ -31,26 +31,21 @@
                 <div class="service-category mb-5">
                     <div class="row align-items-center mb-4">
                         <div class="col-md-8">
-                            <div class="d-flex align-items-center">
-                                <div class="category-icon me-3">
-                                    <i class="{{ category.icon }} fa-2x text-primary"></i>
-                                </div>
-                                <div>
-                                    <h2 class="mb-1">{{ category.name }}</h2>
-                                    <p class="text-muted mb-0">{{ category.description }}</p>
-                                    <!-- Display service icons in category header -->
-                                    <div class="service-icons-preview mt-2">
-                                        {% for service in category.services.all|slice:":4" %}
-                                            {% if service.is_active %}
-                                            <span class="service-preview-icon me-2" title="{{ service.name }}">
-                                                <i class="{{ service.icon }} text-primary"></i>
-                                            </span>
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% if category.services.count > 4 %}
-                                        <span class="text-muted small">+{{ category.services.count|add:"-4" }} more</span>
+                            <div>
+                                <h2 class="mb-1">{{ category.name }}</h2>
+                                <p class="text-muted mb-0">{{ category.description }}</p>
+                                <!-- Display service icons in category header -->
+                                <div class="service-icons-preview mt-2">
+                                    {% for service in category.services.all|slice:":4" %}
+                                        {% if service.is_active %}
+                                        <span class="service-preview-icon me-2" title="{{ service.name }}">
+                                            <i class="{{ service.icon }} text-primary"></i>
+                                        </span>
                                         {% endif %}
-                                    </div>
+                                    {% endfor %}
+                                    {% if category.services.count > 4 %}
+                                    <span class="text-muted small">+{{ category.services.count|add:"-4" }} more</span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -206,6 +201,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.category-icon-large {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #0056b3 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(var(--bs-primary-rgb), 0.3);
+    transition: all 0.3s ease;
+}
+
+.category-icon-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(var(--bs-primary-rgb), 0.4);
 }
 
 .category-icon {
