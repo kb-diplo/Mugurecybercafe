@@ -160,76 +160,64 @@ Visit `http://127.0.0.1:8000` to view the application.
 
 ## 🌍 Deployment
 
-### PythonAnywhere Deployment
+### Render Deployment
 
-**Python Version Required**: Python 3.11 (recommended for PythonAnywhere)
+**Python Version Required**: Python 3.11+ (Render supports latest Python versions)
 
 #### Step-by-Step Deployment Guide:
 
-1. **Create PythonAnywhere Account**
-   - Sign up at [pythonanywhere.com](https://www.pythonanywhere.com)
-   - Choose appropriate plan (Beginner plan supports custom domains)
+1. **Prepare for Deployment**
+   - Ensure your code is pushed to GitHub
+   - Create a `build.sh` file in your project root
+   - Update settings for production
 
-2. **Upload Code**
+2. **Create build.sh**
    ```bash
-   # In PythonAnywhere console
-   git clone https://github.com/kb-diplo/Mugurecybercafe.git
-   cd Mugurecybercafe
-   ```
-
-3. **Create Virtual Environment**
-   ```bash
-   python3.11 -m venv venv
-   source venv/bin/activate
+   #!/usr/bin/env bash
+   # Exit on error
+   set -o errexit
+   
+   # Install dependencies
    pip install -r requirements.txt
-   ```
-
-4. **Configure Database**
-   ```bash
+   
+   # Collect static files
+   python manage.py collectstatic --no-input
+   
+   # Run migrations
    python manage.py migrate
-   python manage.py createsuperuser
-   python manage.py collectstatic
    ```
 
-5. **Configure Web App**
-   - Go to Web tab in PythonAnywhere dashboard
-   - Create new web app
-   - Choose Manual configuration
-   - Select Python 3.11
-   - Set source code directory: `/home/yourusername/Mugurecybercafe`
-   - Set working directory: `/home/yourusername/Mugurecybercafe`
+3. **Update Django Settings**
+   - Add Render domain to `ALLOWED_HOSTS`
+   - Configure database URL for PostgreSQL
+   - Set `DEBUG=False` for production
 
-6. **Configure WSGI File**
-   ```python
-   import os
-   import sys
-   
-   path = '/home/yourusername/Mugurecybercafe'
-   if path not in sys.path:
-       sys.path.append(path)
-   
-   os.environ['DJANGO_SETTINGS_MODULE'] = 'cafee83.settings'
-   
-   from django.core.wsgi import get_wsgi_application
-   application = get_wsgi_application()
+4. **Deploy on Render**
+   - Go to [render.com](https://render.com) and sign up
+   - Connect your GitHub repository
+   - Create a new Web Service
+   - Set build command: `./build.sh`
+   - Set start command: `gunicorn cafee83.wsgi:application`
+
+5. **Environment Variables**
+   - `PYTHON_VERSION`: 3.11.0
+   - `DEBUG`: False
+   - `DATABASE_URL`: (Render will provide PostgreSQL URL)
+   - `SECRET_KEY`: (Generate a secure secret key)
+
+6. **Add Gunicorn to Requirements**
+   ```bash
+   pip install gunicorn
+   pip freeze > requirements.txt
    ```
-
-7. **Configure Static Files**
-   - URL: `/static/`
-   - Directory: `/home/yourusername/Mugurecybercafe/staticfiles/`
-
-8. **Environment Variables**
-   - Set `DEBUG=False` in production
-   - Configure `ALLOWED_HOSTS`
-   - Set up database credentials if using PostgreSQL
 
 ### Production Checklist
 - [ ] Set `DEBUG=False`
-- [ ] Configure `ALLOWED_HOSTS`
-- [ ] Set up PostgreSQL (optional)
-- [ ] Configure email backend
-- [ ] Set up SSL certificate
-- [ ] Configure domain name
+- [ ] Configure `ALLOWED_HOSTS` with Render domain
+- [ ] Set up PostgreSQL database
+- [ ] Configure environment variables
+- [ ] Set up SSL certificate (automatic with Render)
+- [ ] Configure custom domain (optional)
 - [ ] Set up monitoring
 
 ## 🔧 Development
